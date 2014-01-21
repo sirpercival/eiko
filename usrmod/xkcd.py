@@ -1,11 +1,54 @@
-import random
-import re
+import random, re
+import json, os
 
 def portrait(phenny, input):
    phenny.say('http://i222.photobucket.com/albums/dd54/Prime32_temp/OotS/eiko_sudou_0044300x300_zps1dbbd5ed.png')
 portrait.name = 'portrait'
 portrait.commands = ['portrait','eiko']
 portrait.priority = 'low'
+
+with open(os.path.expanduser('~/phenny/usrmod/dhcrit.json')) as f:
+    crits = json.load(f)
+
+def dhcrit(phenny, input):
+    text = input.groups()[1]
+    choiceset = [0,0,0]
+    typemap = {"X":"explosive", "I":"impact", "E":"energy", "R":"rending"}
+    if not text:
+        crittype = random.choice(crits.keys())
+        critloc = random.choice(crits[crittype].keys())
+        critnum = random.choice(crits[crittype][critloc])
+        phenny.reply(critnum)
+        return
+    text = text.split()
+    for opt in text:
+        if opt.upper() in typemap:
+            opt = typemap[opt.upper()]
+        if opt.lower() in crits:
+            crittype = opt.lower()
+            break
+    else:
+        crittype = random.choice(crits.keys())
+    for opt in text:
+        if opt.lower() in crits[crittype]:
+            critloc = opt.lower()
+            break
+    else:
+        critloc = random.choice(crits[crittype].keys())
+    for opt in text:
+        try:
+            opt = int(opt)
+            if opt > 0 and opt <= 10:
+                critnum = crits[crittype][critloc][opt-1]
+                break
+        except ValueError:
+            pass
+    else:
+        critnum = random.choice(crits[crittype][critloc])
+    phenny.reply(critnum)
+dhcrit.name = 'dhcrit'
+dhcrit.commands = ['dhcrit','dhc']
+dhcrit.priority = 'low'
 
 def sandgen(n=1):
 	such = random.choice([random.sample((' a beautiful',' a delicious',' an elegant',' a fantastic',
