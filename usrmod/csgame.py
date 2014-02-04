@@ -125,8 +125,8 @@ campset.priority = 'low'
 
 def compsetlist(phenny, input):
    foo = {'Astrophysics':'castro', 'Geography':'cgeog', 'Climate':'cclim', 'Biology':'cbio', 'Aesthetic':'caes',
-      'Dominant Race':'cdom', 'Primary Values':'cval', 'Economy':'cecon', 'Government':'cgov', 'Defining Feature':'feat',
-      'Overall Theme':'cthem', 'Campaign Start':'cstart', 'The Enemy':'cenem'}
+      'Dominant Race':'cdom', 'Primary Values':'cval', 'Economy':'cecon', 'Government':'cgov', 'Defining Feature':'cfeat',
+      'Overall Theme':'cthem', 'Campaign Start':'cstart', 'The Enemy':'cenem', 'Philosophy':'cphil'}
    antifoo = {}
    for key,val in foo.items():
       antifoo[val] = key

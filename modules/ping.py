@@ -11,7 +11,8 @@ def hello(phenny, input):
    greeting = random.choice(('Hi', 'Hey', 'Hello'))
    punctuation = random.choice(('', '!'))
    phenny.say(greeting + ' ' + input.nick + punctuation)
-hello.rule = r'(?i)(hi|hello|hey) $nickname[ \t]*$'
+#hello.rule = r'(?i)(hi|hello|hey) $nickname[ \t]*$'
+hello.rule = r'(?i)(hi|hello|hey) ($nickname|ei(ko)?(-(ch|t)an)?)(\.|\!|[ \t])*$'
 
 def interjection(phenny, input): 
    phenny.say(input.nick + '!')

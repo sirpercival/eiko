@@ -66,6 +66,7 @@ def startup(phenny, input):
    for channel in phenny.channels: 
       phenny.write(('JOIN', channel))
       time.sleep(0.5)
+      phenny.write(['NAMES'], channel)
 startup.rule = r'(.*)'
 startup.event = '251'
 startup.priority = 'low'

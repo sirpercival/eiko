@@ -16,6 +16,7 @@ def join(phenny, input):
       if not key: 
          phenny.write(['JOIN'], channel)
       else: phenny.write(['JOIN', channel, key])
+      phenny.write(['NAMES'], channel)
 join.rule = r'\.join (#\S+)(?: *(\S+))?'
 join.priority = 'low'
 join.example = '.join #example or .join #example key'
@@ -29,6 +30,14 @@ def part(phenny, input):
 part.commands = ['part']
 part.priority = 'low'
 part.example = '.part #example'
+
+def names(phenny, input):
+   if input.sender.startswith('#'): return
+   if input.admin: 
+      phenny.write(['NAMES'], input.group(2))
+names.commands = ['names']
+names.priority = 'low'
+names.example = '.names #example'
 
 def quit(phenny, input): 
    """Quit from the server. This is an owner-only command."""

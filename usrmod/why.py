@@ -9,10 +9,8 @@ More info:
  * Phenny: http://inamidst.com/phenny/
 """
 
-import re
-import web
-import json
-import random
+import re, os, web, shelve
+import json, random
 
 def get_from_thesaurus(word):
     thesaurus = 'http://words.bighugelabs.com/api/2/a72dc8568568d8d9204b415f846b264a/%s/json'
@@ -86,6 +84,57 @@ def getwhy(phenny, input):
 getwhy.commands = ['why', 'tubbs']
 getwhy.thread = False
 getwhy.rate = 30
+
+with open(os.path.expanduser('~/phenny/usrmod/wonder.json')) as f:
+    wonder = json.load(f)
+
+def rodofwonder(phenny, input):
+    namesdb = shelve.open(phenny.logdir+'/nicks')
+    if input.sender in namesdb:
+        nicks = namesdb[input.sender]
+    else:
+        phenny.say("Nick db error")
+        phenny.write(['NAMES'], input.sender)
+        namesdb.close()
+        return
+    namesdb.close
+    if phenny.nick in nicks:
+        nicks.remove(phenny.nick)
+    if "IronHeart" in nicks:
+        nicks.remove("IronHeart")
+    target = input.groups()[1]
+    if not target:
+        target = random.choice(nicks)
+#    for n in nicks:
+#        print target, n, re.match(r'.*'+target.lower()+'.*', r'.*'+n.lower()+'.*')
+#        if re.match(r'.*'+target.lower()+'.*', n.lower()):
+#            target = n
+#            break
+#    else:
+#        target = random.choice(nicks)
+    effect = random.choice(wonder['effect'])
+    effect = effect.replace('%(user)', str(input.nick))
+    effect = effect.replace('%(target)', str(target.strip()))
+    effect = effect.replace('%(plane)', random.choice(wonder['plane']))
+    effect = effect.replace('%(summonix)', random.choice(wonder['summonix']))
+    effect = effect.replace('%(summonviii)', random.choice(wonder['summonviii']))
+    effect = effect.replace('%(summonii)', random.choice(wonder['summonii']))
+    effect = effect.replace('%(color)', random.choice(wonder['color']))
+    effect = effect.replace('%(polymorph)', random.choice(wonder['polymorph']))
+    effect = effect.replace('%(heavy)', random.choice(wonder['heavy']))
+    phenny.say(effect)
+rodofwonder.name = 'wonder'
+rodofwonder.commands = ['wonder']
+rodofwonder.priority = 'low'
+
+with open(os.path.expanduser('~/phenny/usrmod/surge.json')) as f:
+    surge = json.load(f)
+
+def wsurge(phenny, input):
+    phenny.reply(random.choice(surge))
+wsurge.name = 'wildsurge'
+wsurge.commands = ['wildsurge','surge']
+wsurge.priority = 'low'
 
 if __name__ == '__main__':
     print __doc__.strip()

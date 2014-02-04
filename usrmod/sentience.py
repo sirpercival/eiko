@@ -11,7 +11,7 @@ mycb = cleverbot.Session()
 
 nowords = ('reload', 'help', 'tell', 'ask', 'duel','make me a sandwich')
 
-sentient = {'#Gramarie':True,'#mmxgeneral':True}
+sentient = {'#Gramarie':True,'#mmxgeneral':True, '#Legend':True, '#giantitp':True, '#showoff':True}
 
 def sentience(phenny, input): 
    global sentient

@@ -10,7 +10,7 @@ More info:
 '''
 
 import random, HTMLParser, json
-import re, urllib, urllib2
+import re, urllib, urllib2, shelve
 h = HTMLParser.HTMLParser()
 
 motiv = ("You're doing good work",
@@ -94,40 +94,54 @@ ins3 = ('apple-john','baggage','barnacle','bladder','boar-pig','bugbear','bum-ba
     
 def motivate(phenny, input):
     '''!m -- motivate somebody!'''
-    if input:
-        nick = input
-        nick = (nick[3:]).strip()
-        #coinflip: compliment, or CHUCK?
-        if random.randint(0,1):
-            try:
-                r = urllib2.urlopen('http://api.icndb.com/jokes/random').read()
-            except:
-                mot = random.choice([random.choice(motiv) for i in range(0,6)])
-                phenny.say(mot+", %s!" % (nick))
-            data = json.loads(r)
-            text = h.unescape(data['value']['joke'])
-            if text.startswith("#"):
-                text = text.replace("#")
-            text = text.replace("Chuck Norris's", nick+"'s")
-            text = text.replace("Chuck Norris'", nick+"'s")
-            text = text.replace("Chuck Norris", nick)
-            text = text.replace("Chuck", nick.replace(" ","-"))
-            phenny.say(text)
-        else:
+    if input.groups()[1]:
+        nick = input.groups()[1].strip()
+    else:
+        nickdb = shelve.open(phenny.logdir+'/nicks')
+        nicks = nickdb[input.sender]
+        nickdb.close()
+        nicks.remove(phenny.nick)
+        if "IronHeart" in nicks:
+            nicks.remove("IronHeart")
+        nick = random.choice(nicks)
+    #coinflip: compliment, or CHUCK?
+    if random.randint(0,1):
+        try:
+            r = urllib2.urlopen('http://api.icndb.com/jokes/random').read()
+        except:
             mot = random.choice([random.choice(motiv) for i in range(0,6)])
             phenny.say(mot+", %s!" % (nick))
-motivate.rule = r'(?u)^(\!|\.)m\s+(\S+)'
+        data = json.loads(r)
+        text = h.unescape(data['value']['joke'])
+        if text.startswith("#"):
+            text = text.replace("#")
+        text = text.replace("Chuck Norris's", nick+"'s")
+        text = text.replace("Chuck Norris'", nick+"'s")
+        text = text.replace("Chuck Norris", nick)
+        text = text.replace("Chuck", nick.replace(" ","-"))
+        phenny.say(text)
+    else:
+        mot = random.choice([random.choice(motiv) for i in range(0,6)])
+        phenny.say(mot+", %s!" % (nick))
+motivate.commands = ['motivate','m']
 
 def insult(phenny, input):
     '''!i -- insult somebody!'''
-    if input:
-        nick = input
-        nick = (nick[3:]).strip()
-        i1 = random.choice([random.choice(ins1) for i in range(0,6)])
-        i2 = random.choice([random.choice(ins2) for i in range(0,6)])
-        i3 = random.choice([random.choice(ins3) for i in range(0,6)])
-        phenny.say(nick+', thou art a'+i1+' '+i2+' '+i3+'!')
-insult.rule = r'(?u)^(\!|\.)i\s+(\S+)'
+    if input.groups()[1]:
+        nick = input.groups()[1].strip()
+    else:
+        nickdb = shelve.open(phenny.logdir+'/nicks')
+        nicks = nickdb[input.sender]
+        nickdb.close()
+        nicks.remove(phenny.nick)
+        if "IronHeart" in nicks:
+            nicks.remove("IronHeart")
+        nick = random.choice(nicks) 
+    i1 = random.choice([random.choice(ins1) for i in range(0,6)])
+    i2 = random.choice([random.choice(ins2) for i in range(0,6)])
+    i3 = random.choice([random.choice(ins3) for i in range(0,6)])
+    phenny.say(nick+', thou art a'+i1+' '+i2+' '+i3+'!')
+insult.commands = ['insult','i']
 
 if __name__ == '__main__':
     print __doc__.strip()

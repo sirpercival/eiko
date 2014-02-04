@@ -1,5 +1,5 @@
 import random
-import re
+import re, shelve
 from scores import *
 #from sentience import *
 
@@ -10,6 +10,16 @@ def duel(phenny, input):
    if 'moirai' in input.nick.lower():
       phenny.say('!botsmack')
       return
+   target = input.nick
+   namesdb = shelve.open(phenny.logdir+'/nicks')
+   if input.sender in namesdb:
+      nicks = namesdb[input.sender]
+      for i in input.split():
+         for n in nicks:
+            if n != phenny.nick and i.lower() == n.lower():
+                target = n
+                break
+   namesdb.close()
    wpn1 = ('witchcraft','BEEEEES','pistols','blades','magic','psychic powers','fists','rocks','staff',
       'spears','gnomes','beauty','love','whispers','menacing looks','armies','chutes & ladders',
       'monopoly','yahtzee','logic','philosophy','rubber chickens','farm animals','mathematics',
@@ -49,22 +59,22 @@ def duel(phenny, input):
          ' in stasis with a stone rod','\'s face',' in self-loathing',' with a current of pulsants',
          ' to a hungry heart',' with an Inverted vessel')[ind]
       phenny.say('Certainly. As you are the aggressor, it is my choice of discipline. I choose... '+g0+'!')
-      phenny.msg(input.sender, chr(1)+'ACTION smirks, throwing back her cape, then '+g1+input.nick+g2+', and feels'+rmr+'remorse.'+chr(1))
+      phenny.msg(input.sender, chr(1)+'ACTION smirks, throwing back her cape, then '+g1+target+g2+', and feels'+rmr+'remorse.'+chr(1))
       if sad > cut:
-         phenny.msg(input.sender, chr(1)+'ACTION quickly revives '+input.nick+' while no one is looking.'+chr(1))
-         user_scores.edpoints(phenny, input.nick.lower(), input.sender.lower(), True)
+         phenny.msg(input.sender, chr(1)+'ACTION quickly revives '+target+' while no one is looking.'+chr(1))
+         user_scores.edpoints(phenny, target.lower(), input.sender.lower(), True)
       else:
-         user_scores.edpoints(phenny, input.nick.lower(), input.sender.lower(), False)
+         user_scores.edpoints(phenny, target.lower(), input.sender.lower(), False)
       return
    else:
       ind = random.choice([random.randrange(0,len(wpn1)) for i in range(0,6)])
    phenny.say('Certainly. As you are the aggressor, it is my choice of weapon. I choose... '+wpn1[ind]+'!')
-   phenny.msg(input.sender, chr(1)+'ACTION smirks, throwing back her cape, then stabs '+input.nick+' through the heart with '+wpn2[ind]+', and feels'+rmr+'remorse.'+chr(1))
+   phenny.msg(input.sender, chr(1)+'ACTION smirks, throwing back her cape, then stabs '+target+' through the heart with '+wpn2[ind]+', and feels'+rmr+'remorse.'+chr(1))
    if sad > cut:
-      phenny.msg(input.sender, chr(1)+'ACTION quickly revives '+input.nick+' while no one is looking.'+chr(1))
-      user_scores.edpoints(phenny, input.nick.lower(), input.sender.lower(), True)
+      phenny.msg(input.sender, chr(1)+'ACTION quickly revives '+target+' while no one is looking.'+chr(1))
+      user_scores.edpoints(phenny, target.lower(), input.sender.lower(), True)
    else:
-      user_scores.edpoints(phenny, input.nick.lower(), input.sender.lower(), False)
+      user_scores.edpoints(phenny, target.lower(), input.sender.lower(), False)
 duel.name = 'duel'
 duel.rule = (r'(?i)ei(ko|_0044)?(-(ch|t)an)?.*duel.*')
 duel.priority = 'low'
