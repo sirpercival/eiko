@@ -1,9 +1,10 @@
-import re, shelve, time
+import re, json, time
 from random import choice
 
 def getnams(phenny, input):
     phenny.write(['NAMES'], input.sender)
-    namesdb = shelve.open(phenny.logdir+'/nicks')
+    with open(phenny.logdir+'/nicks') as f:
+        namesdb = json.load(f)
     names = namesdb.get(input.sender,None)
     if not names:
         phenny.say("Nobody's here!")
@@ -48,7 +49,8 @@ subtlety.commands = ['subtlety']
 subtlety.priority = 'low'
 
 def testnames(phenny, input):
-    namesdb = shelve.open(phenny.logdir+'/nicks')
+    with open(phenny.logdir+'/nicks') as f:
+        namesdb = json.load(f)
     names = namesdb.get(input.sender,None)
     if not names:
         phenny.say("Nobody's here!")
@@ -64,9 +66,11 @@ def nametrigger(phenny, input):
     names = [n.split('!')[0] for n in names]
     names = [n.replace('~','') for n in names]
     names = [n.replace('@','') for n in names]
-    namesdb = shelve.open(phenny.logdir+'/nicks')
+    with open(phenny.logdir+'/nicks') as f:
+        namesdb = json.load(f)
     namesdb[input.args[2]] = names
-    namesdb.close()
+    with open(phenny.logdir+'/nicks','w') as f:
+        json.dump(namesdb,f)
 nametrigger.event = '353'
 nametrigger.rule = '(.*)'
 nametrigger.priority = 'high'
