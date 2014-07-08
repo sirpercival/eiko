@@ -12,6 +12,53 @@ More info:
 import re, os, web, shelve
 import json, random
 
+def whathappens(phenny, input):
+    roll1 = random.choice(['monsters', 'hostile NPCs', 'friendly NPCs',
+        'neutral NPCs', 'dwarves', 'elves', 'undead', 'followers', 'DMPC(s)',
+        'gods', 'angels', 'demons', 'dragons', 'swords', 'spells', 'elementals', 
+        'bustling capital cities', 'unassuming villages', 'quaint hamlets', 
+        'player characters'])
+    roll2 = random.choice(['a solitary cheese', 'feeling pretty okay', 
+        'firebreathing dragons', 'frost-breathing dragons', 'dragon-breathing dragons',
+        'undead', 'sad and broken', 'a smouldering slag heap', 'chartreuse',
+        'japanese schoolgirls', 'on fire', 'dogs', 'talking dogs', 'benevolent beholders',
+        'omniscient oozes', 'alliterative archons', 'double-elves', 'angry pixies',
+        'furious fairies', 'specTACularly stupid'])
+    phenny.say("Your game's "+roll1+" are now "+roll2+". What happens?")
+whathappens.name = 'whathappens'
+whathappens.commands = ['whathappens','whap']
+whathappens.priority = 'low'
+
+
+with open(os.path.expanduser('~/phenny/usrmod/timecubes.json')) as f:
+    tc = json.load(f)
+
+def make_dialect(which, text):
+    t = text
+    dialects = shelve.open(os.path.expanduser('~/phenny/usrmod/dialects'))
+    opt = which.lower()
+    if 'chef' in opt or 'swedish' in opt:
+        subs = dialects['chef']
+    elif 'olde' in opt:
+        subs = dialects['olde']
+    elif 'fudd' in opt:
+        subs = dialects['fudd']
+    for frompat, topat in subs:
+        t = re.sub(frompat, topat, t)
+    return t
+
+def timecube(phenny, input):
+    tupl = random.choice(tc['sets'])
+    msgout = ' '.join(tc['text'][tupl[0]:tupl[1]]) if tupl[1] > tupl[0] else tc['text'][tupl[0]]
+    opt = input.groups()[1]
+    if opt:
+        msgout = make_dialect(opt, msgout)
+    phenny.say(msgout)
+timecube.name = 'timecube'
+timecube.commands = ['timecube','generay']
+timecube.priority = 'low'
+
+
 def get_from_thesaurus(word):
     thesaurus = 'http://words.bighugelabs.com/api/2/a72dc8568568d8d9204b415f846b264a/%s/json'
     aa = web.get(thesaurus % word)

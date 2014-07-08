@@ -5,13 +5,30 @@ import json
 import random
 import re
 import time
-import web
+import web, shelve, os
 
 mycb = cleverbot.Session()
 
 nowords = ('reload', 'help', 'tell', 'ask', 'duel','make me a sandwich')
 
-sentient = {'#Gramarie':True,'#mmxgeneral':True, '#Legend':True, '#giantitp':True, '#showoff':True}
+sentient = {'#Gramarie':True,'#mmxgeneral':True, '#Legend':True, '#giantitp':True, '#homestuck':True}
+dialect = {'#Gramarie':'none', '#mmxgeneral':'fudd', '#homestuck':'none'}
+
+def make_dialect(which, text):
+    t = text
+    dialects = shelve.open(os.path.expanduser('~/phenny/usrmod/dialects'))
+    opt = which.lower()
+    if 'chef' in opt or 'swedish' in opt:
+        subs = dialects['chef']
+    elif 'olde' in opt:
+        subs = dialects['olde']
+    elif 'fudd' in opt:
+        subs = dialects['fudd']
+    else:
+        return text
+    for frompat, topat in subs:
+        t = re.sub(frompat, topat, t)
+    return t
 
 def sentience(phenny, input): 
    global sentient
@@ -28,6 +45,21 @@ def sentience(phenny, input):
        print("Sentience " + ("OFF","ON")[sentient.get(channel)]+" in channel "+channel)
 sentience.commands = ['sentience']
 sentience.priority = 'low'
+
+def sent_dialect(phenny, input):
+   global dialect
+   if input.sender.startswith('#'): return
+   channel, d = input.group(2).split(' ')
+   if (not channel): return
+   if input.admin:
+       if dialect.get(channel,False):
+           dialect[channel] = d
+       else:
+           dialect[channel] = d
+       phenny.reply("Dialect " + d + " in channel "+channel)
+       print("Dialect " + d + " in channel "+channel)
+sent_dialect.commands = ['sentdialect']
+sent_dialect.priority = 'low'
 
 def chat(phenny, input):
     if input.groups()[5].lower() == 'are you sentient?':
@@ -87,6 +119,7 @@ def chat(phenny, input):
            rand_num = random.randint(0, 20)
            #time.sleep(5 + rand_num)
            response = re.sub('(?i)cleverbot', 'Eiko', msgo)
+           response = make_dialect(dialect.get(channel,''), response)
            if pm:
                phenny.say(response)
                beginning = ':%s PRIVMSG %s :' % (phenny.config.nick, input.sender)

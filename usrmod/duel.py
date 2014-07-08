@@ -58,7 +58,7 @@ def duel(phenny, input):
          ' to share senses with Cthulhu',' in a never-ending dreamscape',' with an entangled flux pair',
          ' in stasis with a stone rod','\'s face',' in self-loathing',' with a current of pulsants',
          ' to a hungry heart',' with an Inverted vessel')[ind]
-      phenny.say('Certainly. As you are the aggressor, it is my choice of discipline. I choose... '+g0+'!')
+      phenny.say('Certainly. It is my choice of discipline. I choose... '+g0+'!')
       phenny.msg(input.sender, chr(1)+'ACTION smirks, throwing back her cape, then '+g1+target+g2+', and feels'+rmr+'remorse.'+chr(1))
       if sad > cut:
          phenny.msg(input.sender, chr(1)+'ACTION quickly revives '+target+' while no one is looking.'+chr(1))
@@ -68,7 +68,7 @@ def duel(phenny, input):
       return
    else:
       ind = random.choice([random.randrange(0,len(wpn1)) for i in range(0,6)])
-   phenny.say('Certainly. As you are the aggressor, it is my choice of weapon. I choose... '+wpn1[ind]+'!')
+   phenny.say('Certainly. It is my choice of weapon. I choose... '+wpn1[ind]+'!')
    phenny.msg(input.sender, chr(1)+'ACTION smirks, throwing back her cape, then stabs '+target+' through the heart with '+wpn2[ind]+', and feels'+rmr+'remorse.'+chr(1))
    if sad > cut:
       phenny.msg(input.sender, chr(1)+'ACTION quickly revives '+target+' while no one is looking.'+chr(1))

@@ -1,4 +1,5 @@
-import re, shelve
+import re, shelve, time
+from random import choice
 
 def getnams(phenny, input):
     phenny.write(['NAMES'], input.sender)
@@ -12,6 +13,39 @@ def getnams(phenny, input):
 getnams.name = 'getnames'
 getnams.commands = ['getnames']
 getnams.priority = 'low'
+
+def oinkbane(phenny, input):
+    target = input.groups()[1]
+    if not target:
+        target = input.nick
+    phenny.msg('OINKBANE', '.subtlety '+input.sender+' '+target)
+oinkbane.name = 'oinkbane'
+oinkbane.commands = ['subtle','oink','toosubtle']
+oinkbane.priority = 'high' 
+
+def subtlety(phenny, input):
+    if not input.admin or input.sender.startswith('#'):
+        return
+    if phenny.nick != 'OINKBANE':
+        return
+    text = input.groups()[1]
+    if not text or not text.startswith('#'):
+        return
+    text = text.split()
+    chan = text[0]
+    target = ' '.join(text[1:]) if len(text) > 1 else ''
+    phenny.write(['JOIN'], chan)
+    msg = choice(['MY TACTICS ARE TOO SUBTLE FOR YOU','SNEEEEEEEAK ATTAAAAAACK'])
+    act = choice(['crashes through the wall','hurtles through the window','plummets out of the ventilation shaft'])
+    phenny.msg(chan, chr(1)+'ACTION '+act+chr(1))
+    phenny.msg(chan, msg)
+    if target:
+        phenny.msg(chan, chr(1)+'ACTION smashes '+target+'.'+chr(1))
+    time.sleep(0.3)
+    phenny.write(['PART'], chan)
+subtlety.name = 'subtlety'
+subtlety.commands = ['subtlety']
+subtlety.priority = 'low'
 
 def testnames(phenny, input):
     namesdb = shelve.open(phenny.logdir+'/nicks')

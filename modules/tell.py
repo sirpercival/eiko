@@ -148,7 +148,7 @@ def message(phenny, input):
       except:
           return
 
-   for line in reminders[:maximum]: 
+   for line in reminders: 
       phenny.say(line)
 
    if reminders[maximum:]: 

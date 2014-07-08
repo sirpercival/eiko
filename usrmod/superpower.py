@@ -1,5 +1,19 @@
 import web
-import random
+import random, shelve, os, re
+
+def make_dialect(which, text):
+    t = text
+    dialects = shelve.open(os.path.expanduser('~/phenny/usrmod/dialects'))
+    opt = which.lower()
+    if 'chef' in opt or 'swedish' in opt:
+        subs = dialects['chef']
+    elif 'olde' in opt:
+        subs = dialects['olde']
+    elif 'fudd' in opt:
+        subs = dialects['fudd']
+    for frompat, topat in subs:
+        t = re.sub(frompat, topat, t)
+    return t
 
 mAttributeNames = ("Athletics", "Affection", "Skill", "Cunning", "Luck", "Will")
 mTypes = {'lolita': (-1, 0, 0, 0, 1, 0),
@@ -162,6 +176,9 @@ mPowers = (("Super Evasion (In exchange for 1d6 Stress, you can completely avoid
 
 def meido(phenny, input):
    nick = input.nick
+   if nick.lower() == 'brobot':
+      phenny.say('benzrf is an asshole')
+      return
    mTypesK = list(mTypes.keys())
    mType1, mType2 = random.choice(mTypesK), random.choice(mTypesK)
    mColor = random.choice(mColors) + ' and ' + random.choice(mColors)
@@ -198,7 +215,12 @@ def meido(phenny, input):
    else:
       message3 += ": "
    message3 += random.choice(availPowers)
-
+   
+   opt = input.groups()[1]
+   if opt:
+      message = make_dialect(opt, message)
+      message2 = make_dialect(opt, message2)
+      message3 = make_dialect(opt, message3)
    phenny.say(message)
    phenny.say(message2)
    phenny.say(message3)

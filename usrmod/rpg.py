@@ -917,13 +917,21 @@ class Rpg:
                 self.combat.advance_turn(phenny,self,self.character)
         
         if skill == 'Missile': #deal dmg vs Ref
-            hit = self.atk_roll([0,user.stats[5]],[0,target.stats[2]],user.temp.get("Skill",0),target.temp.get("Reflex",0))
+            num_missile = user.level[1]/3 + 1
+            targstring = "You send " if hasattr(user, "gear") \
+                else "The monster sends "
+            phenny.say(targstring + str(num_missile) +" missiles!")
+            hit = 0
+            for i in range(num_missile):
+                hit += max([0, atk_roll([0, user.stats[5]], [0, target.stats[2]], \
+                    user.temp['stats'].get("Skill", 0), \
+                    target.temp['stats'].get("Reflex", 0))])
             if hit > 0:
                 if not self.be_hit(phenny, target, hit):
                     self.combat.advance_turn(phenny,self,self.character)
                     return 2
             else:
-                phenny.say("The Missile failed to connect.")
+                phenny.say("The Missiles failed to connect.")
                 self.combat.advance_turn(phenny,self,self.character)
         
         if skill == 'Doublestrike': #two attacks at smaller bonus
