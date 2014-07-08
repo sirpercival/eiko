@@ -30,12 +30,12 @@ whathappens.commands = ['whathappens','whap']
 whathappens.priority = 'low'
 
 
-with open(os.path.expanduser('~/phenny/usrmod/timecubes.json')) as f:
+with open(os.path.expanduser('~/eiko/usrmod/timecubes.json')) as f:
     tc = json.load(f)
 
 def make_dialect(which, text):
     t = text
-    dialects = shelve.open(os.path.expanduser('~/phenny/usrmod/dialects'))
+    dialects = shelve.open(os.path.expanduser('~/eiko/usrmod/dialects'))
     opt = which.lower()
     if 'chef' in opt or 'swedish' in opt:
         subs = dialects['chef']
@@ -132,7 +132,7 @@ getwhy.commands = ['why', 'tubbs']
 getwhy.thread = False
 getwhy.rate = 30
 
-with open(os.path.expanduser('~/phenny/usrmod/wonder.json')) as f:
+with open(os.path.expanduser('~/eiko/usrmod/wonder.json')) as f:
     wonder = json.load(f)
 
 def rodofwonder(phenny, input):
@@ -174,7 +174,7 @@ rodofwonder.name = 'wonder'
 rodofwonder.commands = ['wonder']
 rodofwonder.priority = 'low'
 
-with open(os.path.expanduser('~/phenny/usrmod/surge.json')) as f:
+with open(os.path.expanduser('~/eiko/usrmod/surge.json')) as f:
     surge = json.load(f)
 
 def wsurge(phenny, input):

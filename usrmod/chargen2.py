@@ -237,12 +237,12 @@ class WRandom(object):
     def __init__(self, weights):
         self.__max = .0
         self.__weights = []
-        for value, weight in weights.items ():
+        for value, weight in weights.items():
             self.__max += weight
-            self.__weights.append ( (self.__max, value) )
+            self.__weights.append((self.__max, value))
 
-    def random (self):
-        r = random.random () * self.__max
+    def random(self):
+        r = random.random() * self.__max
         for ceil, value in self.__weights:
             if ceil > r: return value
             
@@ -284,8 +284,8 @@ pick = {'Aberration':WRandom({'Aboleth':1., 'Ahuizotl':1., 'Athach':1., 'Avolaki
     'Cadaver Collector':1., 'Greater Cadaver Collector':1., 'Caryatid Column':2., 'Clockroach':2., 
     'Adamantine Clockwork Horror':1., 'Electrum Clockwork Horror':2., 'Gold Clockwork Horror':1., 'Platinum Clockwork Horror':1., 
     'Clockwork Mender':2., 'Clockwork Mender Swarm':2., 'Clockwork Pony':2., 'Clockwork Stallion':2., 'Retriever Demon':1., 
-    'Dread Guard':2., 'Alchemical Golem':1., 'Blood Golem of Hextor':1., 'Brain Golem':1., 'Brass Golem':1., 'Chain Golem':1., '
-    Clay Golem':1., 'Coral Golem':1., 'Demonflesh Golem':1., 'Dragonflesh Golem':1., 'Fang Golem':1., 'Flesh Golem':1., 
+    'Dread Guard':2., 'Alchemical Golem':1., 'Blood Golem of Hextor':1., 'Brain Golem':1., 'Brass Golem':1., 'Chain Golem':1., 
+    'Clay Golem':1., 'Coral Golem':1., 'Demonflesh Golem':1., 'Dragonflesh Golem':1., 'Fang Golem':1., 'Flesh Golem':1., 
     'Gloom Golem':1., 'Hangman Golem':1., 'Hellfire Golem':1., 'Ice Golem':1., 'Iron Golem':1., 'Mud Golem':1., 
     'Prismatic Golem':1., 'Sand Golem':1., 'Shadesteel Golem':1., 'Stained Glass Golem':1., 'Stone Golem':1., 'Web Golem':1., 
     'Grisgol':1., 'Homunculus':2., 'Kolyarut':1., 'Marut':1., 'Quarut':1., 'Varakhut':1., 'Zelekhut':1., 'Iron Cobra':2., 
@@ -309,12 +309,12 @@ pick = {'Aberration':WRandom({'Aboleth':1., 'Ahuizotl':1., 'Athach':1., 'Avolaki
     'Greater Storm Elemental':0.1, 'Huge Storm Elemental':0.1, 'Large Storm Elemental':0.2, 'Medium Storm Elemental':0.2, 
     'Small Storm Elemental':0.3, 'Elder Water Elemental':0.1, 'Greater Water Elemental':0.1, 'Huge Water Elemental':0.2, 
     'Large Water Elemental':0.2, 'Medium Water Elemental':0.2, 'Small Water Elemental':0.3, 'Fire Bat':0.2, 'Galeb Duhr':0.2, 
-    'Immoth':0.1, 'Inferno Spider':0.2, 'Invisible Stalker':0.2, 'Living Holocaust':0.1 'Magmin':0.3, 'Omnimental':0.1, 
-    'Stone Spike':0.2, 'Tempest':0.1 'Thoqqua':0.3}),
+    'Immoth':0.1, 'Inferno Spider':0.2, 'Invisible Stalker':0.2, 'Living Holocaust':0.1, 'Magmin':0.3, 'Omnimental':0.1, 
+    'Stone Spike':0.2, 'Tempest':0.1, 'Thoqqua':0.3}),
     'Fey':WRandom({'Domovoi':0.5, 'Dryad':0.4, 'Feytouched':0.7, 'Fossergrim':0.4, 'Jermlaine':0.7, 'Joystealer':0.2, 
     'Kelpie':0.2, 'Lunar Ravager':0.1, 'Nymph':0.1, 'Ocean Strider':0.1, 'Oread':0.2, 'Petal':0.6, 'Rimefire Eidolon':0.1, 
     'Rusalka':0.6, 'Satyr':0.3, 'Shadar-Kai':0.5, 'Sirine':0.3, 'Spirit of the Land':0.1, 'Splinterwaif':0.4, 'Spriggan':0.3, 
-    'Grig':0.5, 'Nixie':0.5 'Pixie':0.4, 'Uldra':0.6, 'Verdant Prince':0.1, 'Vodyanoi':0.3, 'Yuki-On-Na':0.2}),
+    'Grig':0.5, 'Nixie':0.5, 'Pixie':0.4, 'Uldra':0.6, 'Verdant Prince':0.1, 'Vodyanoi':0.3, 'Yuki-On-Na':0.2}),
     'Giant':WRandom({'Ogre':0.8, 'Ettin':0.6, 'Fensir':0.7, 'Rakka Fensir':0.5, 'Firbolg':0.2, 'Fomorian':0.2, 'Geriviar':0.1, 
     'Bog Giant':0.7, 'Cloud Giant':0.4, "Craa'ghoran Giant":0.3, 'Fire Giant':0.3, 'Forest Giant':0.4, 'Frost Giant':0.4, 
     'Hill Giant':0.6, 'Mountain Giant':0.1, 'Ocean Giant':0.1, 'Shadow Giant':0.2, 'Stone Giant':0.5, 'Storm Giant':0.2, 
@@ -322,6 +322,121 @@ pick = {'Aberration':WRandom({'Aboleth':1., 'Ahuizotl':1., 'Athach':1., 'Avolaki
     'Humanoid':WRandom({'Bugbear':0.1, 'Dark Creeper':0.1, 'Dark Stalker':0.5, 'Dwarf':0.5, 'Duergar':0.3, 'Glacier Dwarf':0.4, 
     'Elf':0.5, 'Drow':0.2, 'Engineer':0.5, 'Githyanki':0.2, 'Githzerai':0.2, 'Gnoll':0.2, 'Gnome':0.5, 'Svirfneblin':0.2, 
     'Goblin':0.4, 'Snow Goblin':0.5, 'Halfling':0.5, 'Hobgoblin':0.3, 'Human':0.5, 'Kobold':0.4, 'Lizardfolk':0.2, 
-    'Locathah':0.3, 'Merfolk':0.3, 'Mongrelfolk':0.4, 'Neanderthal':0.5, 'Orc':0.3, 'Selkie':0.1, 'Skulk':0.1, 'Troglodyte':0.1})}
+    'Locathah':0.3, 'Merfolk':0.3, 'Mongrelfolk':0.4, 'Neanderthal':0.5, 'Orc':0.3, 'Selkie':0.1, 'Skulk':0.1, 'Troglodyte':0.1}),
+    'MagicalBeast':WRandom({'Abrian':0.2, 'Ankheg':0.2, 'Aranea':0.1, 'Ash Rat':0.2, 'Ashworm':0.2, 'Asperi':0.2, 
+    'Avalancher':0.1, 'Basilisk':0.1, 'Bearhound':0.1, 'Behir':0.1, 'Blink Dog':0.2, 'Blood Ape':0.2, 'Blood Hawk':0.2, 
+    'Bloodsilk Spider':0.2, 'Branta':0.2, 'Brood Keeper':0.1, 'Bulette':0.1, 'Camelopardel':0.2, 'Chaos Roc':0.1, 
+    'Chekryan':0.2, 'Chimera':0.1, 'Chronotyryn':0.1, 'Cloaked Ape':0.2, 'Cloud Ray':0.1, 'Cockatrice':0.2, 'Corollax':0.2, 
+    'Darkmantle':0.2, 'Death Dog':0.2, 'Digester':0.1, 'Disenchanter':0.1, 'Displacer Beast':0.1, 'Dragonne':0.1, 
+    'Dunewinder':0.1, 'Giant Eagle':0.2, 'Ethereal Marauder':0.2, 'Feral Yowler':0.1, 'Fiendwurm':0.1, 'Greater Flame Snake':0.1, 
+    'Lesser Flame Snake':0.1, 'Minor Flame Snake':0.2, 'Frost Salamander':0.1, 'Frost Worm':0.1, 'Gambol':0.1, 'Gathra':0.1, 
+    'Girallon':0.1, 'Gorgon':0.1, 'Gravorg':0.1, 'Gray Render':0.1, 'Griffon':0.1, 'Grimalkin':0.2, 'Hammerclaw':0.2, 
+    'Hippocampus':0.2, 'Hippogriff':0.2, 'Hydra':0.1, 'Cryohydra':0.1, 'Pyrohydra':0.1, 'Ice Toad':0.2, 'Ironclad Mauler':0.1, 
+    'Jackalwere':0.2, 'Kraken':0.1, 'Krenshar':0.2, 'Kuldurath':0.1, 'Lamia':0.1, 'Lammasu':0.1, 'Leviathan':0.1, 
+    'Lucent Worm':0.1, 'Manticore':0.1, 'Mivilorn':0.1, 'Mooncalf':0.1, 'Moonrat':0.2, 'Mudmaw':0.1, 'Nethersight Mastiff':0.1, 
+    'Nightmare Beast':0.1, 'Giant Owl':0.2, 'Owlbear':0.2, 'Pegasus':0.2, 'Phase Spider':0.2, 'Phase Wasp':0.2, 'Phoenix':0.1, 
+    'Phoera':0.2, 'Purple Worm':0.1, 'Quanlos':0.1, 'Ramfish':0.1, 'Rampager':0.1, 'Giant Raven':0.2, 'Razor Boar':0.1, 
+    'Remorhaz':0.1, 'Roper':0.1, 'Sand Hunter':0.2, 'Sea Cat':0.1, 'Seawolf':0.6, 'Senmurv':0.2, 'Shadow Asp':0.2, 
+    'Shadow Spider':0.1, 'Shedu':0.1, 'Shocker Lizard':0.2, 'Sisiutl':0.1, 'Skiurid':0.2, 'Spellgaunt':0.1, 'Androsphinx':0.1, 
+    'Canisphinx':0.1, 'Criosphinx':0.1, 'Crocosphinx':0.1, 'Gynosphinx':0.1, 'Hieracosphinx':0.1, 'Saurosphinx':0.1, 
+    'Threskisphinx':0.1, 'Spider Eater':0.2, 'Spirit of the Air':0.1, 'Stirge':0.2, 'Swamplight Lynx':0.1, 
+    'Cranium Rat Swarm':0.4, 'Hellwasp Swarm':0.1, 'Tarrasque':0.1, 'Terlen':0.2, 'Thunder Worm':0.1, 'Thunderbird':0.1, 
+    'Tlalusk':0.1, 'Tomb Spider':0.1, 'Tomb Spider Broodswarm':0.2, 'Unicorn':0.2, 'Urskan':0.1, 'Varrangoin Arcanist':0.1, 
+    'Lesser Varrangoin':0.1, 'Varrangoin Rager':0.1, 'Winter Wolf':0.1, 'Worg':0.2, 'Yrthak':0.1, 'Zezir':0.1}),
+    'MonstrousHumanoid':WRandom({'Queen Abeil':0.1, 'Soldier Abeil':0.1, 'Abeil Vassal':0.3, 'Boggle':0.2, 'Braxat':0.1, 
+    'Centaur':0.2, 'Derro':0.2, 'Desmodu':0.1, 'Doppelganger':0.2, 'Ethereal Doppelganger':0.1, 'Frost Folk':0.3, 'Gargoyle':0.2, 
+    'Goatfolk':0.3, 'Grimlock':0.4, 'Annis Hag':0.2, 'Green Hag':0.1, 'Sea Hag':0.3, 'Harpy':0.1, 'Jackal Lord':0.1, 'Khaasta':0.2, 
+    'Kopru':0.1, 'Kuo-Toa':0.3, 'Loxo':0.2, 'Marzanna':0.1, 'Medusa':0.2, 'Minotaur':0.2, 'Greathorn Minotaur':0.1, 'Nagatha':0.1, 
+    'Nycter':0.3, 'Ophidian':0.4, 'Ormyrr':0.1, 'Sahuagin':0.3, 'Sarkrith Spelleater':0.1, 'Sarkrith Thane':0.1, 'Scorpionfolk':0.1, 
+    'Skindancer':0.1, 'Spell Weaver':0.1, 'Thri-Kreen':0.3, 'Yak Folk':0.2, 'Yeti':0.2, 'Yuan-Ti Abomination':0.1, 
+    'Yuan-Ti Halfblood':0.1, 'Yuan-Ti Ignan':0.1, 'Yuan-Ti Pureblood':0.2, 'Yurian':0.2, 'Zern':0.1, 'Zern Blade Thrall':0.2}),
+    'Ooze':WRandom({'Bloodbloater Ooze':0.9, 'Flotsam Ooze':0.9,  'Reekmurk Ooze':0.6, 'Arcane Ooze':0.1, 'Bloodfire Ooze':0.2, 
+    'Bone Ooze':0.1, 'Conflagration Ooze':0.4, 'Corrupture':0.2, 'Ethereal Ooze':0.2, 'Flesh Jelly':0.1, 'Black Pudding':0.3, 
+    'Brine Ooze':0.3, 'Gelatinous Cube':0.8, 'Gray Ooze':0.8, 'Lava Ooze':0.5, 'Ochre Jelly':0.6, 'White Pudding':0.4, 
+    'Reason Stealer':0.7, 'Snowflake Ooze':0.5, 'Summoning Ooze':0.7, 'Teratomorph':0.1}),
+    'Outsider':WRandom({'Formian Worker':1, 'Ether Scarab':1, 'Aasimar':1, 'Maeluth':1, 'Mechanatrix':1, 'Tiefling':1, 
+    'Wispling':1, 'Lantern Archon':1, 'Lemure':1, 'Chaond':1, 'Zenythri':1, 'Vargouille':1, 'Bacchae':1, 'Bladeling':1, 
+    'Filth Imp':1, 'Quasit':1, 'Demonhive Attendant':1, 'Demonet Swarm':1, 'Imp':1, 'Kaorti':1, 'Varoot':1, 'Shyft':1, 
+    'Windrazor':1, 'Aoa Droplet':1, 'Juvenile Arrowhawk':1, 'Abyssal Maw':1, 'Abyssal Skulker':1, 'Dretch':1, 'Nashrou':1, 
+    'Juvenile Tojanida':1, 'Minor Xorn':1, 'Formian Warrior':1, 'Bloodbag Imp':1, 'Euphoric Imp':1, 'Triton':1, 'Vorr':1, 
+    'Wrackspawn':1, 'Skeroloth':1, 'Azer':1, 'Skulvyn':1, 'Ravid':1, 'Air Mephit':1, 'Dust Mephit':1, 'Earth Mephit':1, 
+    'Fire Mephit':1, 'Glass Mephit':1, 'Ice Mephit':1, 'Magma Mephit':1, 'Ooze Mephit':1, 'Salt Mephit':1, 'Steam Mephit':1, 
+    'Sulfur Mephit':1, 'Water Mephit':1, 'Rast':1, 'Yeth Hound':1, 'Voor':1, 'Barghest':1, 'Hell Hound':1, 'Visilight':1, 
+    'Achaierai':1, 'Advespa':1, 'Dwarf Ancestor':1, 'Flamebrother Salamander':1, 'Adult':1, 'Cervidal':1, 
+    'Formian Winged Warrior':1, 'Durzagon':1, 'Howler':1, 'Kalareem ':1, 'Shadow Mastiff':1, 'Mud Slaad':1, 'Adult Tojanida':1, 
+    'Abyssal Ravager':1, 'Babau':1, 'Formian Taskmaster':1, 'Sylph':1, 'Average Xorn':1, 'Greater Barghest':1, 'Haraknin':1, 
+    'Jovoc':1, 'Maurezhi':1, 'Demonhive Queen':1, 'Araton':1, 'Keeper':1, 'Hound Archon':1, 'Chaos Beast':1, 'Movanic Deva':1, 
+    'Hellcat':1, 'Janni':1, 'Nightmare':1, 'Xill':1, 'Formian Armadon':1, 'Avoral Guardinal ':1, 'Rejkar ':1, 'Trilloch ':1, 
+    'Canoloth':1, 'Corruptor of Fate':1, 'Justice Archon ':1, 'Barbazu ':1, 'Midgard Dwarf ':1, 'Bralani Eladrin ':1, 
+    'Night Hag':1, 'Windscythe':1, 'Djinni':1, 'Efreeti':1, 'Qorrashi':1, 'Maelephant ':1, 'Marrash ':1, 'Piscoloth':1, 
+    'Succubus':1, 'Zovvut':1, 'Bone Devil':1, 'Vaporighu':1, 'Lupinal':1, 'Chain Devil':1, 'Dune Stalker':1, 'Formian Observer':1, 
+    'Glimmerskin':1, 'Lillend':1, 'Average Salamander':1, 'Red Slaad':1, 'Vultivor':1, 'Whisper Demon':1, 'Amnizu':1, 
+    'Mezzoloth':1, 'Farastu':1, 'Bebilith':1, 'Palrethee':1, 'Monadic Deva':1, 'Formian Myrmarch':1, 'Ferrumach':1, 'Blue Slaad':1, 
+    'Echinoloth':1, 'Arrowhawk Elder':1, 'Jarilith':1, 'Barbed Devil':1, 'Ghaele Eladrin':1, 'Elder Xorn':1, 'Devil':1, 
+    'Leonal Guardinal':1, 'Rakshasa':1, 'Elder Tojanida':1, 'Shadurakul':1, 'Alkilith':1, 'Arrow Demon':1, 'Glabrezu':1, 
+    'Malebranche':1, 'Nessian Warhound':1, 'Noble Salamander':1, 'Green Slaad':1, 'Steel Predator':1, 'Marraenoloth':1, 'Couatl':1, 
+    'Kelubar':1, 'Kastighur':1, 'Rukarazyll':1, 'Gray Slaad':1, 'Yagnoloth':1, 'Vrock':1, 'Ice Devil':1, 'Aoa Sphere':1, 
+    'Nalfeshnee':1, 'Ethereal Slayer':1, 'Death Slaad':1, 'Cuprilach':1, 'Scyllan':1, 'Nycaloth':1, 'Planetar':1, 'Hezrou':1, 
+    'Kelvezu':1, 'Justicator':1, 'Shator':1, 'Horned Devil':1, 'Sillit':1, 'Wastrilith':1, 'Marilith':1, 'Xerfilstyx':1, 
+    'Astral Deva':1, 'Trumpet Archon':1, 'Sorrowsworn Demon':1, 'Arcanaloth':1, 'Ultroloth':1, 'Formian Queen':1, 
+    'Concordant Killer':1, 'Pit Fiend':1, 'Myrmyxicus':1, 'Marruspawn Abomination':1, 'Balor':1, 'Paeliryon':1, 'Titan':1, 
+    'Aurumach':1, 'Solar':1, 'Deathdrinker':1, 'Klurichir':1}),
+    'Plant':WRandom({'Assassin Vine':0.5, 'Battlebriar':0.5, 'Warbound Impaler':0.5, 'Bloodthorn':0.5, 'Briarvex':0.5, 
+    'Shrieker':0.5, 'Violet Fungus':0.5, 'Greenvise':0.4, 'Ironmaw':0.4, 'Ironthorn':0.4, 'Kelp Angler':0.4, 'Myconid':1.7, 
+    'Needlefolk':0.2, 'Night Twist':0.2, 'Oaken Defender':0.2, 'Octopus Tree':0.2, 'Orcwort':0.2, 'Wortling':0.2, 
+    'Phantom Fungus':0.1, 'Plague Brush':0.1, 'Porcupine Cactus':0.1, 'Red Sundew':0.1, 'Saguaro Sentinel':0.1, 
+    'Shambling Mound':0.1, 'Sporebat':0.1, 'Tendriculos':0.1, 'Treant':0.1, 'Tumbling Mound':0.1, 'Twig Blight':0.1, 
+    'Vine Horror':0.1, 'Wizened Elder':0.1, 'Yellow Musk Creeper':0.1}),
+    'Undead':WRandom({'Abyssal Ghoul':0.1, 'Allip':0.3, 'Ashen Husk':0.3, 'Banshee':0.1, 'Bhut':0.2, 'Blackskate':0.3, 
+    'Bloodhulk Crusher':0.1, 'Bloodhulk Fighter':0.2, 'Bloodhulk Giant':0.1, 'Bodak':0.2, 'Bone Naga':0.1, 'Boneclaw':0.2, 
+    'Bonedrinker':0.2, 'Lesser Bonedrinker':0.2, 'Charnel Hound':0.1, 'Corpse Gatherer':0.1, 'Crawling Apocalypse':0.1, 
+    'Crawling Head':0.1, 'Crimson Death':0.1, 'Crypt Thing':0.3, 'Deathbringer':0.1, 'Deathshrieker':0.1, 'Defacer':0.2, 
+    'Blood Fiend':0.1, 'Devourer':0.1, 'Dust Wight':0.1, 'Effigy':0.1, 'Entombed':0.1, 'Famine Spirit':0.1, 'Ghoul':0.3, 
+    'Ghast':0.3, 'Gravecrawler':0.1, 'Hullathoin':0.1, 'Icegaunt':0.2, 'Jahi':0.1, 'Mohrg':0.1, 'Mummy':0.2, 'Necronaut':0.1, 
+    'Necrotic Carnex':0.3, 'Nightcrawler':0.1, 'Nightwalker':0.1, 'Nightwing':0.1, 'Plague Spewer':0.1, 'Plague Walker':0.3, 
+    'Quth-Maren':0.2, 'Ragewind':0.1, 'Shadow':0.3, 'Spawn of Kyuss':0.2, 'Spectre':0.2, 'Ulgurstasta':0.1, 'Vampire Spawn':0.3, 
+    'Vasuthant':0.3, 'Vitreous Drinker':0.1, 'Wight':0.3, 'Winterspawn':0.1, 'Wraith':0.2, 'Dread Wraith':0.1}),
+    'Vermin':WRandom({'Giant Ant Lion':0.1, 'Giant Queen Ant':0.1, 'Giant Soldier Ant':0.2, 'Giant Worker Ant':0.2, 
+    'Giant Bee':0.2, 'Giant Bombardier Beetle':0.2, 'Giant Fire Beetle':0.3, 'Giant Stag Beetle':0.1, 'Bonespear ':0.1, 
+    'Brine Swimmer':0.1, 'Colossal Monstrous Centipede':0.1, 'Gargantuan Monstrous Centipede':0.1, 'Huge Monstrous Centipede':0.1, 
+    'Large Monstrous Centipede':0.2, 'Medium Monstrous Centipede':0.3, 'Small Monstrous Centipede':0.2, 
+    'Tiny Monstrous Centipede':0.2, 'Century Worm':0.1, 'Chelicera ':0.1, 'Colossal Monstrous Crab':0.1, 
+    'Gargantuan Monstrous Crab':0.1, 'Huge Monstrous Crab':0.1, 'Large Monstrous Crab':0.1, 'Medium Monstrous Crab':0.2, 
+    'Small Monstrous Crab':0.3, 'Knell Beetle':0.1, 'Giant Leech':0.3, 'Leechwalker ':0.1, 'Megapede ':0.1, 
+    'Great Old Master Neogi':0.1, 'Giant Praying Mantis':0.1, 'Colossal Monstrous Scorpion':0.1, 
+    'Gargantuan Monstrous Scorpion':0.1, 'Huge Monstrous Scorpion':0.1, 'Large Monstrous Scorpion':0.1, 
+    'Medium Monstrous Scorpion':0.2, 'Small Monstrous Scorpion':0.2, 'Tiny Monstrous Scorpion':0.2, 'Siege Crab':0.1, 
+    'Large Snow Spider':0.1, 'Medium Snow Spider':0.2, 'Small Snow Spider':0.3, 'Colossal Monstrous Spider':0.1, 
+    'Gargantuan Monstrous Spider':0.1, 'Huge Monstrous Spider':0.1, 'Large Monstrous Spider':0.1, 'Medium Monstrous Spider':0.2, 
+    'Small Monstrous Spider':0.3, 'Tiny Monstrous Spider':0.2, 'Bloodfiend Locust Swarm':0.1, 'Centipede Swarm':0.1, 
+    'Jellyfish Swarm':0.1, 'Leech Swarm':0.2, 'Locust Swarm':0.1, 'Plague Ant Swarm':0.1, 'Rapture Locust Swarm':0.1, 
+    'Scarab Beetle Swarm':0.1, 'Spider Swarm':0.2, 'Wasp Swarm':0.1, 'Giant Queen Termite':0.1, 'Giant Soldier Termite':0.2, 
+    'Giant Worker Termite':0.2, 'Giant Wasp':0.1}),
+    'Template':WRandom({'Anarchic':0.1, 'Axiomatic':0.1, 'Celestial':0.3, 'Chameleon':0.4, 'Child of the Sea':0.2, 'Draconic':0.4, 
+    'Dragon Vassal':0.2, 'Dragonspawn':0.4, 'Dry Lich':0.1, 'Entropic':0.2, 'Feral':0.4, 'Fiendish':0.3, 'Ghost':0.1, 
+    'Gravetouched Ghoul':0.2, 'Half-Celestial':0.1, 'Half-Dragon':0.2, 'Half-Elemental':0.2, 'Half-Farspawn':0.1, 'Half-Fey':0.2, 
+    'Half-Fiend':0.1, 'Half-Illithid':0.1, 'Half-Troll':0.1, 'Half-Vampire':0.2, 'Hooded Pupil':0.1, 'Insectile':0.2, 'Lich':0.1, 
+    'Lolth-Touched':0.4, 'Mineral Warrior':0.4, 'Mummified':0.1, 'Necropolitan':0.5, 'Primordial':0.5, 'Risen Martyr':0.5, 
+    'Shadow':0.2, 'Spellwarped':0.2, 'Tainted One':0.2, 'Vampire':0.1, 'Vivacious':0.1, 'Werebear':0.3, 'Wereboar':0.2, 
+    'Wererat':0.3, 'Weretiger':0.3, 'Werewolf':0.3, 'Woodling':0.2})}
+
+def reincarnate(phenny, input):
+    target = input.groups()[1]
+    if not target:
+        target = input.nick
+    result = []
+    while True:
+        typ = reinc.random() 
+        result.append(pick[typ].random())
+        if typ != 'Template':
+            break
+    res = ' '.join(result)
+    article = 'a'
+    if res[0].lower() in 'aeiou':
+        article += 'n'
+    phenny.say(' '.join([target,'is reincarnated as',article,res]))
+reincarnate.name = 'reincarnate'
+reincarnate.commands = ['reincarnate']
+reincarnate.priority = 'low'
     
     

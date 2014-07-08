@@ -6,7 +6,7 @@ Licensed under the Eiffel Forum License 2.
 http://inamidst.com/phenny/
 """
 
-import random, sqlite3
+import random, sqlite3, os
 
 stock_answers = [
     """I don't know.""",
@@ -14,7 +14,7 @@ stock_answers = [
     """shrug"""
 ]
 
-dbfile = '/Users/gray/.phenny/factoids.db'
+dbfile = os.path.expanduser('~/.phenny/factoids.db')
 
 def setup(self):
     conn = sqlite3.connect(dbfile)

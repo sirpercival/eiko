@@ -16,7 +16,7 @@ dialect = {'#Gramarie':'none', '#mmxgeneral':'fudd', '#homestuck':'none'}
 
 def make_dialect(which, text):
     t = text
-    dialects = shelve.open(os.path.expanduser('~/phenny/usrmod/dialects'))
+    dialects = shelve.open(os.path.expanduser('~/eiko/usrmod/dialects'))
     opt = which.lower()
     if 'chef' in opt or 'swedish' in opt:
         subs = dialects['chef']

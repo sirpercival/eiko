@@ -7,7 +7,7 @@ portrait.name = 'portrait'
 portrait.commands = ['portrait','eiko']
 portrait.priority = 'low'
 
-with open(os.path.expanduser('~/phenny/usrmod/dhcrit.json')) as f:
+with open(os.path.expanduser('~/eiko/usrmod/dhcrit.json')) as f:
     crits = json.load(f)
 
 def dhcrit(phenny, input):
