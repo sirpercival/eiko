@@ -149,7 +149,10 @@ def rodofwonder(phenny, input):
     #    nicks.remove(phenny.nick)
     #if "IronHeart" in nicks:
     #    nicks.remove("IronHeart")
-    target = input.groups()[1]
+    try:
+        target = input.groups()[1]
+    except:
+        target = 'Admiral Nelson'
     if not target:
     #    target = random.choice(nicks)
         target = input.nick
