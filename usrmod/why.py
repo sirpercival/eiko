@@ -137,21 +137,22 @@ with open(os.path.expanduser('~/eiko/usrmod/wonder.json')) as f:
 
 def rodofwonder(phenny, input):
     namesdb = shelve.open(phenny.logdir+'/nicks')
-    if input.sender in namesdb:
-        nicks = namesdb[input.sender]
-    else:
-        phenny.say("Nick db error")
-        phenny.write(['NAMES'], input.sender)
-        namesdb.close()
-        return
-    namesdb.close
-    if phenny.nick in nicks:
-        nicks.remove(phenny.nick)
-    if "IronHeart" in nicks:
-        nicks.remove("IronHeart")
+    #if input.sender in namesdb:
+    #    nicks = namesdb[input.sender]
+    #else:
+    #    phenny.say("Nick db error")
+    #    phenny.write(['NAMES'], input.sender)
+    #    namesdb.close()
+    #    return
+    #namesdb.close
+    #if phenny.nick in nicks:
+    #    nicks.remove(phenny.nick)
+    #if "IronHeart" in nicks:
+    #    nicks.remove("IronHeart")
     target = input.groups()[1]
     if not target:
-        target = random.choice(nicks)
+    #    target = random.choice(nicks)
+        target = input.nick
 #    for n in nicks:
 #        print target, n, re.match(r'.*'+target.lower()+'.*', r'.*'+n.lower()+'.*')
 #        if re.match(r'.*'+target.lower()+'.*', n.lower()):
