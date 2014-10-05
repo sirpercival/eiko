@@ -3,9 +3,12 @@ from random import choice
 
 def getnams(phenny, input):
     phenny.write(['NAMES'], input.sender)
-    with open(phenny.logdir+'/nicks') as f:
-        namesdb = json.load(f)
-    names = namesdb.get(input.sender,None)
+    try:
+        with open(phenny.logdir+'/nicks.json') as f:
+            namesdb = json.load(f)
+        names = namesdb.get(input.sender,None)
+    except:
+        names = []
     if not names:
         phenny.say("Nobody's here!")
         return
@@ -49,7 +52,7 @@ subtlety.commands = ['subtlety']
 subtlety.priority = 'low'
 
 def testnames(phenny, input):
-    with open(phenny.logdir+'/nicks') as f:
+    with open(phenny.logdir+'/nicks.json') as f:
         namesdb = json.load(f)
     names = namesdb.get(input.sender,None)
     if not names:
@@ -66,10 +69,13 @@ def nametrigger(phenny, input):
     names = [n.split('!')[0] for n in names]
     names = [n.replace('~','') for n in names]
     names = [n.replace('@','') for n in names]
-    with open(phenny.logdir+'/nicks') as f:
-        namesdb = json.load(f)
+    try:
+        with open(phenny.logdir+'/nicks.json') as f:
+            namesdb = json.load(f)
+    except:
+        namesdb = {}
     namesdb[input.args[2]] = names
-    with open(phenny.logdir+'/nicks','w') as f:
+    with open(phenny.logdir+'/nicks.json','w') as f:
         json.dump(namesdb,f)
 nametrigger.event = '353'
 nametrigger.rule = '(.*)'
