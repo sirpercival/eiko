@@ -8,3 +8,6 @@ Enjoy!
 
 -- 
 Sean B. Palmer, http://inamidst.com/sbp/
+
+
+Note from sirp: the translate module doesn't really work... I tend to disable it. Also some things are buggy, particularly the dialect stuff....
